@@ -1,1 +1,6 @@
-H1 { color: green }
+H1 { font-variant: small-caps; font-weight: lighter }
+IMG { width: 200; height: 400 }
+BODY { background-color: grey; font-family: helvetica }
+
+
+
