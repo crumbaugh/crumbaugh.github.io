@@ -1,7 +1,7 @@
-h1 { font-variant: small-caps; font-weight: lighter }
+h1 { font-variant: small-caps; font-weight: lighter; color: #384545 }
 body { background-color: grey; font-family: helvetica }
-a:link { color: grey }
-a:visited { color: black }
-a:hover { color: light-blue }
+a:link { color: #6A9C9B }
+a:visited { color: #384545 }
+a:hover { color:  #8DB8B7}
 
 
