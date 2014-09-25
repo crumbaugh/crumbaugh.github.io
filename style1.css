@@ -1,5 +1,5 @@
 h1 { font-variant: small-caps; font-weight: lighter; color: #384545 }
-body { background-color: grey; font-family: helvetica }
+body { background-color: grey; font-family: helvetica; color: #384545 }
 a:link { color: #6A9C9B }
 a:visited { color: #384545 }
 a:hover { color:  #8DB8B7}
