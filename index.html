@@ -31,6 +31,8 @@
         }
 
         function updateMap(){
+                console.log(myLat);
+                console.log(myLng);
                 marker = new google.maps.Marker({
                         position: google.maps.LatLng(myLat, myLng),
                         title: "me",
