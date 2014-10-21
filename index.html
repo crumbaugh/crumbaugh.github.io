@@ -38,7 +38,27 @@
                                 title: tempName,
                                 icon: whichIcon(tempName),
                         });
+                        google.maps.event.addListener(tempMarker, 'click', function() {
+					                      infowindow.setContent(locData.characters[i].loc.note);
+					                      infowindow.open(map, tempMarker);
+				                });
                         tempMarker.setMap(map);
+                }
+        }
+        
+        function whichIcon(name){
+                if(name == "carmen")
+                        return "http://tuftsdev.github.io/WebProgramming/images/carmen.png";
+                if(name == "waldo")
+                        return "http://tuftsdev.github.io/WebProgramming/images/waldo.png";
+                if(name == "batman")
+                        return "http://tuftsdev.github.io/WebProgramming/images/batman.png";
+                if(name == "norman")
+                        return "http://tuftsdev.github.io/WebProgramming/images/nr.png";
+                if(name == "severus")
+                        return "http://tuftsdev.github.io/WebProgramming/images/snape.png";
+                if(name == "ben")
+                        return "http://tuftsdev.github.io/WebProgramming/images/hescott.png";
         }
         
         function showMe(){
