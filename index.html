@@ -25,11 +25,11 @@
         function dataReady(){
                 if(request.readyState == 4 && request.status == 200){
                         locData = JSON.parse(request.responseText);
-                        updateMap();
+                        updateMap(locData);
                 }
         }
 
-        function updateMap(){
+        function updateMap(locData){
                 for(i = 0; i<6; i++){
                         tempMe = new google.maps.LatLng(locData.characters[i].loc.lat, locData.characters[i].loc.long),
                         tempName = locData.characters[i].name;
