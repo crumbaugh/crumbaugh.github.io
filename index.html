@@ -43,7 +43,7 @@
 
         function findMe(){
                 if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(location());
+                        navigator.geolocation.getCurrentPosition(location);
                         function location(position) {
                                 myLat = position.coords.latitude;
                                 myLng = position.coords.longitude;
