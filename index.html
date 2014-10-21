@@ -43,10 +43,11 @@
 
         function findMe(){
                 if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(function(position) {
+                        navigator.geolocation.getCurrentPosition(location());
+                        function location(position) {
                                 myLat = position.coords.latitude;
                                 myLng = position.coords.longitude;
-                        });
+                        }
                 }
                 else {
                         alert("Geolocation is not supported by your web browser.  What a shame!");
