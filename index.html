@@ -20,23 +20,25 @@
                 findMe();
                 request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
                 request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                request.send("login=crumb&lat=myLat&lng=myLng")
-                request.onreadystatechange = updateMap();
         }
 
         function dataReady(){
                 if(request.readyState == 4 && request.status == 200){
                         locData = JSON.parse(request.responseText);
+                        updateMap();
                 }
-
         }
 
         function updateMap(){
-                marker = new google.maps.Marker({
-                        position: google.maps.LatLng(myLat, myLng),
-                        title: "me",
-                });
-                marker.setMap(map);
+                for(i = 0; i<6; i++){
+                        var tempMe = new google.maps.LatLng(locData.characters[i].loc.lat, locData.characters[i].loc.long),
+                        var tempName = locData.characters[i].name;
+                        var tempMarker = new google.maps.Marker({
+                                position: tempMe,
+                                title: tempName,
+                                icon: whichIcon(tempName),
+                        });
+                        tempMarker.setMap(map);
         }
         
         function showMe(){
@@ -54,7 +56,8 @@
                                 myLat = position.coords.latitude;
                                 myLng = position.coords.longitude;
                                 console.log(myLat);
-                                showMe();
+                                request.send("login=crumb&lat=myLat&lng=myLng")
+                                request.onreadystatechange = dataReady();
                         });
                 }
                 else {
