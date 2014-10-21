@@ -21,6 +21,7 @@
                 request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
                 request.send("login=crumb&lat=myLat&lng=myLng")
                 request.onreadystatechange = updateMap();
+        }
 
         function dataReady(){
                 if(request.readyState == 4 && request.status == 200){
