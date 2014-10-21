@@ -16,10 +16,11 @@
 
         function init(){
                 map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-                request.open("get", "http://chickenofthesea.herokuapp.com/sendLocation", true);
-                request.onreadystatechange = showMe();
-request.send("bleh", myLat, myLng);
-        }
+                findMe();
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
+                request.send("login=crumb&lat=myLat&lng=myLng")
+                request.onreadystatechange = updateMap();
 
         function dataReady(){
                 if(request.readyState == 4 && request.status == 200){
@@ -36,12 +37,11 @@ request.send("bleh", myLat, myLng);
                 marker.setMap(map);
         }
 
-        function showMe(){
+        function findMe(){
                 if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function(position) {
                                 myLat = position.coords.latitude;
                                 myLng = position.coords.longitude;
-                                updateMap();
                         });
                 }
                 else {
