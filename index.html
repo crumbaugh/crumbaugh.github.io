@@ -40,8 +40,9 @@
         }
         
         function showMe(){
-               marker = new google.maps.Marker({
-                        position: google.maps.LatLng(myLat, myLng),
+                me = new google.maps.LatLng(myLat, myLng),
+                marker = new google.maps.Marker({
+                        position: me,
                         title: "me",
                });
               marker.setMap(map);
