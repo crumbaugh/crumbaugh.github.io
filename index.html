@@ -1,18 +1,61 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="style.css"/>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
+    <script>
+        var map, locData, myLat, myLng;
+        var request = new XMLHttpRequest();
+        var loc = new google.maps.LatLng(42.3581, -71.0636)
+        var myOptions = {
+                zoom: 12,
+                center: loc,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
 
-<head>
-	<link rel="stylesheet" type="text/css" href="style1.css">
-	<title>Chase's Home Page</title>
-</head>
-<body>
+        function init(){
+                map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+                request.open("get", "http://chickenofthesea.herokuapp.com/sendLocation", true);
+                request.onreadystatechange = showMe();
+request.send("bleh", myLat, myLng);
+        }
 
-<h1>Chase Crumbaugh</h1>
+        function dataReady(){
+                if(request.readyState == 4 && request.status == 200){
+                        locData = JSON.parse(request.responseText);
+                }
 
-<img src="./comp20/meandsnoopeh.jpg" alt="Chase and Snoopeh">
+        }
 
-<h3><a href="comp20/resume.html">Resume</a></h3>
-<h3><a href="comp20/bio.html">Bio</a></h3>
+        function updateMap(){
+                marker = new google.maps.Marker({
+                        position: google.maps.LatLng(myLat, myLng),
+                        title: "me",
+                });
+                marker.setMap(map);
+        }
 
-</body>
+        function showMe(){
+                if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                                myLat = position.coords.latitude;
+                                myLng = position.coords.longitude;
+                                updateMap();
+                        });
+                }
+                else {
+                        alert("Geolocation is not supported by your web browser.  What a shame!");
+                }
+        }
+
+        function addMarker(loc, trainId){
+                marker = new google.maps.Marker({ position: loc, title: trainId});
+                marker.setMap(map);
+        }
+    </script>
+        </head>
+  <body onload="init()">
+<div id="map-canvas"></div>
+  </body>
 </html>
