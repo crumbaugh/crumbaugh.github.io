@@ -79,7 +79,8 @@
                                 myLat = position.coords.latitude;
                                 myLng = position.coords.longitude;
                                 console.log(myLat);
-                                request.send("login=crumb&lat=myLat&lng=myLng")
+                                request.send("login=crumb&lat=myLat&lng=myLng");
+                                console.log("chillin");
                                 request.onreadystatechange = dataReady;
                         });
                 }
