@@ -17,8 +17,8 @@
         function init(){
                 map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
                 findMe();
-                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 request.send("login=crumb&lat=myLat&lng=myLng")
                 request.onreadystatechange = updateMap();
         }
