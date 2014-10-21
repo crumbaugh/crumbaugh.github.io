@@ -80,7 +80,7 @@
                                 myLng = position.coords.longitude;
                                 console.log(myLat);
                                 request.send("login=crumb&lat=myLat&lng=myLng")
-                                request.onreadystatechange = dataReady();
+                                request.onreadystatechange = dataReady;
                         });
                 }
                 else {
