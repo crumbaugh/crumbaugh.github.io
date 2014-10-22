@@ -37,12 +37,12 @@
                         var tempMe = new google.maps.LatLng(locData.characters[i].loc.lat, locData.characters[i].loc.long),
                         var tempName = locData.characters[i].name;
                         console.log(tempName);
-                        var tempMarker = new google.maps.Marker({
+                        window["marker"+i] = new google.maps.Marker({
                                 position: tempMe,
                                 title: tempName,
                                 icon: whichIcon(tempName),
                         });
-                        google.maps.event.addListener(tempMarker, 'click', function() {
+                        google.maps.event.addListener(window["marker"+i], 'click', function() {
 				infowindow.setContent(locData.characters[i].loc.note);
 				infowindow.open(map, tempMarker);
 			});
