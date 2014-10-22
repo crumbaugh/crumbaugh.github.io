@@ -46,13 +46,14 @@
                                 position: tempMe,
                                 title: tempName,
                                 icon: whichIcon(tempName),
+                                clickable: true,
                         });
                         window["marker"+i].setMap(map);
-                        window["info" + i] = new google.maps.InfoWindow({
+                        window["marker" + i].info = new google.maps.InfoWindow({
         	           	content: tempNote,
                 	});
                         google.maps.event.addListener(window["marker"+i], 'click', function() {
-				window["info" + i].open(map, window["marker"+i]);
+				window["marker" + i].info.open(map, window["marker"+i]);
 			});
 			var polyline = [
 				tempMe,
