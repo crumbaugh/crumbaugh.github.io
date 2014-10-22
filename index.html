@@ -33,9 +33,10 @@
         function updateMap(locData){
         	var i = 0;
                 while(locData.characters[i] != undefined){
-                	var tempMe, tempName;
+                	var tempMe, tempName, tempNote;
                         tempMe = new google.maps.LatLng(locData.characters[i].loc.latitude, locData.characters[i].loc.longitude);
                         tempName = locData.characters[i].name;
+                        tempNote = locData.characters[i].loc.note;
                         console.log(tempName);
                         window["marker"+i] = new google.maps.Marker({
                                 position: tempMe,
@@ -44,7 +45,7 @@
                         });
                         google.maps.event.addListener(window["marker"+i], 'click', function() {
                         	window["info" + i] = new google.maps.InfoWindow();
-				window["info"+ i].setContent(locData.characters[i].loc.note);
+				window["info" + i].setContent(tempNote);
 				window["info" + i].open(map, window["marker"+i]);
 			});
                         window["marker"+i].setMap(map);
