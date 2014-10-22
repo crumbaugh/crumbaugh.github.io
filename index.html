@@ -32,6 +32,7 @@
 
         function updateMap(locData){
         	var i = 0;
+        	showOne(locData);
                 while(locData.characters[i] != undefined){
                 	var tempMe, tempName;
                         tempMe = new google.maps.LatLng(locData.characters[i].loc.lat, locData.characters[i].loc.long),
@@ -66,8 +67,8 @@
                         return "http://tuftsdev.github.io/WebProgramming/images/hescott.png";
         }
         
-        function showMe(){
-                me = new google.maps.LatLng(myLat, myLng),
+        function showOne(locData){
+                me = new google.maps.LatLng(locData.characters[i].loc.lat, locData.characters[i].loc.long),
                 marker = new google.maps.Marker({
                         position: me,
                         title: "me",
