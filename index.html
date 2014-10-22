@@ -43,8 +43,9 @@
                                 icon: whichIcon(tempName),
                         });
                         google.maps.event.addListener(window["marker"+i], 'click', function() {
-				infowindow.setContent(locData.characters[i].loc.note);
-				infowindow.open(map, window["marker"+i]);
+                        	window["info" + i] = new google.maps.InfoWindow();
+				window["info"+ i].setContent(locData.characters[i].loc.note);
+				window["info" + i].open(map, window["marker"+i]);
 			});
                         window["marker"+i].setMap(map);
                         i++;
@@ -58,11 +59,11 @@
                         return "http://tuftsdev.github.io/WebProgramming/images/waldo.png";
                 if(name == "batman")
                         return "http://tuftsdev.github.io/WebProgramming/images/batman.png";
-                if(name == "norman")
+                if(name == "nr")
                         return "http://tuftsdev.github.io/WebProgramming/images/nr.png";
-                if(name == "severus")
+                if(name == "snape")
                         return "http://tuftsdev.github.io/WebProgramming/images/snape.png";
-                if(name == "ben")
+                if(name == "hescott")
                         return "http://tuftsdev.github.io/WebProgramming/images/hescott.png";
         }
         
