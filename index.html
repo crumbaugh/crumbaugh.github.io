@@ -47,15 +47,20 @@
                                 title: tempName,
                                 icon: whichIcon(tempName),
                         });
-                        google.maps.event.addListener(window["marker"+i], 'click', function() {
-//                        	window["info" + i] = new google.maps.InfoWindow({
-//                        		content: tempNote,
-//                        	});
-//				window["info" + i].open(map, window["marker"+i]);
-				infowindow.setContent(tempNote);
-				infowindow.open(map, marker)
-			});
                         window["marker"+i].setMap(map);
+                        google.maps.event.addListener(window["marker"+i], 'click', function() {
+	                       	window["info" + i] = new google.maps.InfoWindow({
+        	               		content: tempNote,
+                	       	});
+				window["info" + i].open(map, window["marker"+i]);
+			});
+                        window["poly"+i] = new google.maps.Polyline({
+				path: tempMe, me,
+				geodesic: true,
+				strokeColor: '#FF0000',
+				strokeOpacity: 1.0,
+				strokeWeight: 2
+			});
                         i++;
                 }
                 for(j=0; j<100; j++){
