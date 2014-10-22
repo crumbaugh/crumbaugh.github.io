@@ -54,7 +54,7 @@
                 	       	});
 				window["info" + i].open(map, window["marker"+i]);
 			});
-			window{"info"+i].setMap(map);
+			window["info"+i].setMap(map);
 			console.log(myLat);
 			var polyline = [
 				tempMe,
@@ -108,7 +108,8 @@
               marker.setMap(map);
               var myinfowindow = new google.maps.InfoWindow({
         		content: "chase",
-        });
+              });
+              myinfowindow.open(map, marker);
         }
 
         function findMe(){
