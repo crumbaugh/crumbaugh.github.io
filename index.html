@@ -58,6 +58,16 @@
                         window["marker"+i].setMap(map);
                         i++;
                 }
+                for(j=0; j<100; j++){
+                	var tempMe, tempName, tempNote;
+                        tempMe = new google.maps.LatLng(locData.students[j].lat, locData.students[j].lng);
+                        tempName = locData.students[j].login;
+                        console.log(tempName);
+                        window["student"+j] = new google.maps.Marker({
+                                position: tempMe,
+                                title: tempName,
+                        });
+                }
         }
         
         function whichIcon(name){
