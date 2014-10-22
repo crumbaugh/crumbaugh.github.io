@@ -33,7 +33,7 @@
         function updateMap(locData){
         	var i = 0;
                 while(locData.characters[i] != undefined){
-                	console.log("tryna update dis bitch");
+                	var tempMe, tempName;
                         tempMe = new google.maps.LatLng(locData.characters[i].loc.lat, locData.characters[i].loc.long),
                         tempName = locData.characters[i].name;
                         console.log(tempName);
