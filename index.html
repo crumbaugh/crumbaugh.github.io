@@ -32,11 +32,10 @@
 
         function updateMap(locData){
         	var i = 0;
-        	showOne(locData);
                 while(locData.characters[i] != undefined){
                 	var tempMe, tempName;
-                        tempMe = new google.maps.LatLng(locData.characters[i].loc.lat, locData.characters[i].loc.long),
-                        console.log(locData.characters[0].loc.lat);
+                        tempMe = new google.maps.LatLng(locData.characters[i].loc.latitude, locData.characters[i].loc.longitude),
+                        console.log(locData.characters[0].loc.latitude);
                         tempName = locData.characters[i].name;
                         console.log(tempName);
                         window["marker"+i] = new google.maps.Marker({
