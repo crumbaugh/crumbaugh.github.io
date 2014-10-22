@@ -45,7 +45,7 @@
                         });
                         google.maps.event.addListener(window["marker"+i], 'click', function() {
                         	window["info" + i] = new google.maps.InfoWindow({
-                        		content: tempNote;
+                        		content: tempNote,
                         	});
 				window["info" + i].open(map, window["marker"+i]);
 			});
