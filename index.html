@@ -68,6 +68,7 @@
         }
         
         function showOne(locData){
+        	console.log(locData.characters[0].loc.lat);
                 me = new google.maps.LatLng(locData.characters[0].loc.lat, locData.characters[0].loc.long),
                 marker = new google.maps.Marker({
                         position: me,
