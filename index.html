@@ -6,9 +6,12 @@
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
     <script>
         console.log("hi");
-        var map, locData, myLat, myLng;
+        var map, locData, myLat, myLng, infoContent;
         var request = new XMLHttpRequest();
-        var loc = new google.maps.LatLng(42.3581, -71.0636)
+        var loc = new google.maps.LatLng(42.3581, -71.0636);
+        var infowindow = new google.maps.InfoWindow({
+        	content: infoContent;
+        });
         var myOptions = {
                 zoom: 12,
                 center: loc,
@@ -32,6 +35,7 @@
 
         function updateMap(locData){
         	var i = 0;
+        	showMe();
                 while(locData.characters[i] != undefined){
                 	var tempMe, tempName, tempNote;
                         tempMe = new google.maps.LatLng(locData.characters[i].loc.latitude, locData.characters[i].loc.longitude);
@@ -44,10 +48,12 @@
                                 icon: whichIcon(tempName),
                         });
                         google.maps.event.addListener(window["marker"+i], 'click', function() {
-                        	window["info" + i] = new google.maps.InfoWindow({
-                        		content: tempNote,
-                        	});
-				window["info" + i].open(map, window["marker"+i]);
+//                        	window["info" + i] = new google.maps.InfoWindow({
+//                        		content: tempNote,
+//                        	});
+//				window["info" + i].open(map, window["marker"+i]);
+				infowindow.setContent(tempNote);
+				infowindow.open(map, marker)
 			});
                         window["marker"+i].setMap(map);
                         i++;
@@ -69,9 +75,8 @@
                         return "http://tuftsdev.github.io/WebProgramming/images/hescott.png";
         }
         
-        function showOne(locData){
-        	console.log(locData.characters[0].loc.lat);
-                me = new google.maps.LatLng(locData.characters[0].loc.lat, locData.characters[0].loc.long),
+        function showMe(){
+                me = new google.maps.LatLng(myLat, myLong),
                 marker = new google.maps.Marker({
                         position: me,
                         title: "me",
