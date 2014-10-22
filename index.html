@@ -34,10 +34,10 @@
         	var i = 0;
                 while(locData.characters[i] != undefined){
                 	console.log("tryna update dis bitch");
-                        tempMe = new google.maps.LatLng(locData.characters[i].loc.lat, locData.characters[i].loc.long),
-                        tempName = locData.characters[i].name;
+                        var tempMe = new google.maps.LatLng(locData.characters[i].loc.lat, locData.characters[i].loc.long),
+                        var tempName = locData.characters[i].name;
                         console.log(tempName);
-                        tempMarker = new google.maps.Marker({
+                        var tempMarker = new google.maps.Marker({
                                 position: tempMe,
                                 title: tempName,
                                 icon: whichIcon(tempName),
