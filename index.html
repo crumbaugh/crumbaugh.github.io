@@ -56,11 +56,11 @@
                         return "http://tuftsdev.github.io/WebProgramming/images/waldo.png";
                 if(name == "batman")
                         return "http://tuftsdev.github.io/WebProgramming/images/batman.png";
-                if(name == "norman")
+                if(name == "nr")
                         return "http://tuftsdev.github.io/WebProgramming/images/nr.png";
-                if(name == "severus")
+                if(name == "snape")
                         return "http://tuftsdev.github.io/WebProgramming/images/snape.png";
-                if(name == "ben")
+                if(name == "hescott")
                         return "http://tuftsdev.github.io/WebProgramming/images/hescott.png";
         }
         
@@ -78,8 +78,9 @@
                         navigator.geolocation.getCurrentPosition(function(position) {
                                 myLat = position.coords.latitude;
                                 myLng = position.coords.longitude;
+                                myLog = "AnthonyGoldstein";
                                 console.log(myLat);
-                                request.send("login=crumb&lat=myLat&lng=myLng");
+                                request.send("login=myLog&lat=myLat&lng=myLng");
                                 console.log("chillin");
                                 request.onreadystatechange = dataReady;
                         });
