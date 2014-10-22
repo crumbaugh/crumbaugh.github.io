@@ -46,7 +46,7 @@
 				infowindow.setContent(locData.characters[i].loc.note);
 				infowindow.open(map, tempMarker);
 			});
-                        tempMarker.setMap(map);
+                        window["marker"+i].setMap(map);
                         i++;
                 }
         }
