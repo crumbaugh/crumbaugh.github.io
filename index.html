@@ -44,8 +44,9 @@
                                 icon: whichIcon(tempName),
                         });
                         google.maps.event.addListener(window["marker"+i], 'click', function() {
-                        	window["info" + i] = new google.maps.InfoWindow();
-				window["info" + i].setContent(tempNote);
+                        	window["info" + i] = new google.maps.InfoWindow({
+                        		content: tempNote;
+                        	});
 				window["info" + i].open(map, window["marker"+i]);
 			});
                         window["marker"+i].setMap(map);
