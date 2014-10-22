@@ -44,7 +44,7 @@
                         });
                         google.maps.event.addListener(window["marker"+i], 'click', function() {
 				infowindow.setContent(locData.characters[i].loc.note);
-				infowindow.open(map, tempMarker);
+				infowindow.open(map, window["marker"]+i);
 			});
                         window["marker"+i].setMap(map);
                         i++;
