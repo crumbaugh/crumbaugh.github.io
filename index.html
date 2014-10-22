@@ -54,7 +54,10 @@
                 	       	});
 				window["info" + i].open(map, window["marker"+i]);
 			});
-			var polyline = [tempMe, me];
+			var polyline = [
+				tempMe,
+				new google.maps.LatLng(myLat, myLng),
+			];
                         window["poly"+i] = new google.maps.Polyline({
 				path: polyline,
 				geodesic: true,
