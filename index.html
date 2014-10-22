@@ -48,10 +48,10 @@
                                 icon: whichIcon(tempName),
                         });
                         window["marker"+i].setMap(map);
+                        window["info" + i] = new google.maps.InfoWindow({
+        	           	content: tempNote,
+                	});
                         google.maps.event.addListener(window["marker"+i], 'click', function() {
-	                       	window["info" + i] = new google.maps.InfoWindow({
-        	               		content: tempNote,
-                	       	});
 				window["info" + i].open(map, window["marker"+i]);
 			});
 			var polyline = [
