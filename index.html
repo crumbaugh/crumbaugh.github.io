@@ -16,7 +16,7 @@
 */
         function reload()
         {
-                elem = $("#results");
+                elem = document.getElementById("results");
                 output = "";
                 for (key in localStorage) {
                         output = output + "<p>" + localStorage[key] + "</p>\n";
