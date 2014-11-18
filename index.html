@@ -1,41 +1,143 @@
 <!DOCTYPE html>
-
 <html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="style1.css"/>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
+    <script>
+        console.log("hi");
+        var map, locData, myLat, myLng, infoContent, me;
+        var request = new XMLHttpRequest();
+        var loc = new google.maps.LatLng(42.3581, -71.0636);
+        var infowindow = new google.maps.InfoWindow({
+                content: infoContent,
+        });
+        var myOptions = {
+                zoom: 12,
+                center: loc,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
 
-<head>
-<title>Local Storage Example</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script>
-/*      function init()
-        {
-                localStorage.setItem('phrase', 'Bonkers');
-                elem = document.getElementById("header");
-                elem.innerHTML = "<h1>The phrase that pays is " + localStorage['phrase'] + "</h1>";
+        function init(){
+                map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+                findMe();
+                request.open("POST", "http://chickenofthesea.herokuapp.com/sendLocation", true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         }
-*/
-        function reload()
-        {
-                elem = document.getElementById("results");
-                output = "";
-                for (key in localStorage) {
-                        output = output + "<p>" + localStorage[key] + "</p>\n";
+          
+        function dataReady(){
+                if(request.readyState == 4 && request.status == 200){
+                        console.log("tryna parse");
+                        locData = JSON.parse(request.responseText);
+                        updateMap(locData);
                 }
-                elem.innerHTML = output;
+        }
+    
+        function updateMap(locData){
+                var i = 0;
+                showMe();
+                while(locData.characters[i] != undefined){
+                        var tempMe, tempName, tempNote;
+                        tempMe = new google.maps.LatLng(locData.characters[i].loc.latitude, locData.characters[i].loc.longitude);
+                        tempName = locData.characters[i].name;
+                        tempNote = locData.characters[i].loc.note;
+                        console.log(tempName);
+                        window["marker"+i] = new google.maps.Marker({
+                                position: tempMe,
+                                title: tempName,
+                                icon: whichIcon(tempName),
+                                clickable: true,
+                        });
+                        window["marker"+i].setMap(map);
+                        window["marker" + i].info = new google.maps.InfoWindow({
+                                content: tempNote,
+                        });
+                        google.maps.event.addListener(window["marker"+i], 'click', function() {
+                                window["marker" + i].info.open(map, window["marker"+i]);
+                        });
+                        var polyline = [
+                                tempMe,
+                                new google.maps.LatLng(myLat, myLng),
+                        ];
+                        window["poly"+i] = new google.maps.Polyline({
+                                path: polyline,
+                                geodesic: true,
+                                strokeColor: '#FF0000',
+                                strokeOpacity: 1.0,
+                                strokeWeight: 2
+                        });
+                        window["poly"+i].setMap(map);
+                        i++;
+                }
+                for(j=0; j<100; j++){
+                        var tempMe, tempName, tempNote;
+                        tempMe = new google.maps.LatLng(locData.students[j].lat, locData.students[j].lng);
+                        tempName = locData.students[j].login;
+                        console.log(tempName);
+                        window["student"+j] = new google.maps.Marker({
+                                position: tempMe,
+                                title: tempName,
+                        });
+                        window["student"+j].setMap(map);
+                }
         }
 
-        function store()
-        {
-                txt = document.getElementById("something").value;
-                localStorage[new Date().getTime()] = txt;
-                reload();
+        function whichIcon(name){
+                if(name == "carmen")
+                        return "http://tuftsdev.github.io/WebProgramming/images/carmen.png";
+                if(name == "waldo")
+                        return "http://tuftsdev.github.io/WebProgramming/images/waldo.png";
+                if(name == "batman")
+                        return "http://tuftsdev.github.io/WebProgramming/images/batman.png";
+                if(name == "nr")
+                        return "http://tuftsdev.github.io/WebProgramming/images/nr.png";
+                if(name == "snape")
+                        return "http://tuftsdev.github.io/WebProgramming/images/snape.png";
+                if(name == "hescott")
+                        return "http://tuftsdev.github.io/WebProgramming/images/hescott.png";
         }
-</script>
-</head>
 
-<body onload="init()">
-        <div id="header"></div>
-        <p>Say something: <input type="text" name="something" id="something" onchange="store()" /></p>
-        <div id="results"></div>
-</body>
+        function showMe(){
+                me = new google.maps.LatLng(myLat, myLng);
+                marker = new google.maps.Marker({
+                        position: me,
+                        title: "me",
+                        icon: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3OkA6Iy8/UEhATzhBQkABCgoKDQwNGg8PGislHyU3Kzc3NzcrOCwrNzcsNzg4Kzc3Nzg4ODctKys3ODg3ODg4ODgrNzgyKysxNDE3KyssK//AABEIADAAMAMBIgACEQEDEQH/xAAZAAADAAMAAAAAAAAAAAAAAAAEBgcCAwX/xAAvEAACAQMDAgMHBAMAAAAAAAABAgMEBREAEiExQQYTYRQiMlGRocEjQnGBB9Hw/8QAFwEBAQEBAAAAAAAAAAAAAAAAAwQCAf/EAB0RAAIDAAMBAQAAAAAAAAAAAAECAAMRBBIhQRP/2gAMAwEAAhEDEQA/AJfYbSl0uMdF57Rs2f25J46DVPobXQWWnENHSpLO/HmSkEA9+vGlDwLNDDNOWJk8uPcjYBZM/Fj+eNUC1W6ouTpMsf6XVSeBg98dzqdrOpydpq7jZojt8MuQ0EHXlccZ9e300oeNrFVUsqyUDSyU8kbMY9gzHtGSDjtjP01VY7bR0cwjmq1FS4yFOkvxxDUSWuvjC7/ZVDM/fg8Y1pX+GI9PmiTuCijaNWYhs45UfnpoqOjG4BYkHqwyfwNdC1RCWggk25LIOR3OjUjXcAvHPO0Z13IQHkX7I7UMk2N+3HYfF65xqu+GKFrla6SaWaSExru2RnAYftP8YxqUkNAkQEf6W7AOOQNM3gfxLJR160csk7wSrsR258s9v650BPuw+NdjdWle9noaqSGaVY5ZAg+TYPTOkb/K91pbbaqqnFIZJ6+HyhKGA2gHn86bLepeHy2QhG953U7Q3rxpX/ylZXuNlpp1QPJFOd2Tj3WGB9wPrplOkZLrj0QkRBswc2qjQR4zGMlsfbOjQzsDsSXOepHH50BRSmkpoaVvOEiDZIu3ncP++2i56tN4V9oCg7Tkcn1/3pBkh/ZcnOqKj2WIquAe50NDcxAEwuZQ+Qcawu7Asrr3bDY1os9N7Xd6SI9HlUf1nS1VBhsO2sK2y42CdKyFJw43hQXX5HHXGiLzc4pIGp0VZEPxZGQcc6VraDSw1LPGZFigJgUdSw68/LBGs7jUwraqipHJEO4npjI4XVNHDRW7TNnKdlyIdfVNNUTyKRh5XYHHYk6EaQ+7sVCy5IJHJPGsGfaADkn01q3EN8sad6q2O5B6z//Z"
+               });
+              marker.setMap(map);
+              var myinfowindow = new google.maps.InfoWindow({
+                        content: "chase",
+              });
+              myinfowindow.open(map, marker);
+        }
+
+        function findMe(){
+                if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                                myLat = position.coords.latitude;
+                                myLng = position.coords.longitude;
+                                console.log(myLat);
+                                request.send("login=AnthonyGoldstein&lat="+ myLat + "&lng=" + myLng);
+                                console.log("chillin");
+                                request.onreadystatechange = dataReady;
+                        });
+                }
+                else {
+                        alert("Geolocation is not supported by your web browser.  What a shame!");
+                }
+        }
+
+        function addMarker(loc, trainId){
+                marker = new google.maps.Marker({ position: loc, title: trainId});
+                marker.setMap(map);
+        }
+    </script>
+    </head>
+  <body onload="init()">
+<div id="map-canvas"></div>
+  </body>
 </html>
+
+
+
+
