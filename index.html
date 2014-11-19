@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="style1.css"/>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
     <script>
-        console.log("hi");
         var map, locData, myLat, myLng, infoContent, me;
         var request = new XMLHttpRequest();
         var loc = new google.maps.LatLng(42.3581, -71.0636);
@@ -27,7 +26,6 @@
           
         function dataReady(){
                 if(request.readyState == 4 && request.status == 200){
-                        console.log("tryna parse");
                         locData = JSON.parse(request.responseText);
                         updateMap(locData);
                 }
@@ -41,7 +39,6 @@
                         tempMe = new google.maps.LatLng(locData.characters[i].loc.latitude, locData.characters[i].loc.longitude);
                         tempName = locData.characters[i].name;
                         tempNote = locData.characters[i].loc.note;
-                        console.log(tempName);
                         window["marker"+i] = new google.maps.Marker({
                                 position: tempMe,
                                 title: tempName,
@@ -73,7 +70,6 @@
                         var tempMe, tempName, tempNote;
                         tempMe = new google.maps.LatLng(locData.students[j].lat, locData.students[j].lng);
                         tempName = locData.students[j].login;
-                        console.log(tempName);
                         window["student"+j] = new google.maps.Marker({
                                 position: tempMe,
                                 title: tempName,
@@ -116,11 +112,7 @@
                         navigator.geolocation.getCurrentPosition(function(position) {
                                 myLat = position.coords.latitude;
                                 myLng = position.coords.longitude;
-                                console.log(myLat);
                                 request.send("login=AnthonyGoldstein&lat="+ myLat + "&lng=" + myLng);
-                                var regEx = /\=(\w+|\w+\.\w+)(?:\&|$)/g
-                                var regArray = regEx.exec(myLat);
-                                console.log(regArray[0]);
                                 request.onreadystatechange = dataReady;
                         });
                 }
