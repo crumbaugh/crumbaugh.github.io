@@ -26,6 +26,7 @@
           
         function dataReady(){
                 if(request.readyState == 4 && request.status == 200){
+                        console.log(request.responseText);
                         locData = JSON.parse(request.responseText);
                         updateMap(locData);
                 }
