@@ -46,7 +46,7 @@
                                 title: tempName,
                         });
                         google.maps.event.addListener(markers[j],'click',function(){
-                                infowindow.setContent(markers[j].title);
+                                infowindow.setContent(tempName);
                                 inforwindow.close();
                                 infowindow.open(map,markers[j]);
                         });
