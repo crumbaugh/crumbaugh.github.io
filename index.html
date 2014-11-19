@@ -36,8 +36,9 @@
         function updateMap(locData){
                 var i = 0;
                 showMe();
-                console.log("markers");
+                
                 for(j=0; j<locData.length; j++){
+                        console.log("markers");
                         var tempMe, tempName, tempNote;
                         tempMe = new google.maps.LatLng(locData.students[j].lat, locData.students[j].lng);
                         tempName = locData.students[j].login;
