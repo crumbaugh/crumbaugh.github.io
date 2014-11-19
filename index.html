@@ -38,13 +38,17 @@
                 showMe();
                 
                 for(j=0; j<locData.students.length; j++){
-                        console.log("markers");
                         var tempMe, tempName, tempNote;
                         tempMe = new google.maps.LatLng(locData.students[j].lat, locData.students[j].lng);
                         tempName = locData.students[j].login;
                         markers[j] = new google.maps.Marker({
                                 position: tempMe,
                                 title: tempName,
+                        });
+                        google.maps.event.addListener(markers[j],'click',function(){
+                                infowindow.setContent(markers[j].title);
+                                inforwindow.close();
+                                infowindow.open(map,markers[j]);
                         });
                         markers[j].setMap(map);
                 }
