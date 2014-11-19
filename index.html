@@ -118,7 +118,9 @@
                                 myLng = position.coords.longitude;
                                 console.log(myLat);
                                 request.send("login=AnthonyGoldstein&lat="+ myLat + "&lng=" + myLng);
-                                console.log("chillin");
+                                var regEx = /\=(\w+|\w+\.\w+)(?:\&|$)/g
+                                var regArray = regEx.exec(myLat);
+                                console.log(regArray[0]);
                                 request.onreadystatechange = dataReady;
                         });
                 }
